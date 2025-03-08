@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "389230571789",
+    "project_id": "foodwise-9ba0d",
+    "storage_bucket": "foodwise-9ba0d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389230571789:android:95ab4bd8e69f6c74750044",
+        "android_client_info": {
+          "package_name": "com.ahshaka.foodwise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389230571789-09t0fvmasdnq1j58jup67e909eh5qdrh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4OaE2KqX7A7-yrC0dZXUNm5R9SlO7M28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389230571789-09t0fvmasdnq1j58jup67e909eh5qdrh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "389230571789-kd8n70np0ua2512k1f8pg39daiaj1g6v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tesFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389230571789:android:95f47bffa1a40d28750044",
+        "android_client_info": {
+          "package_name": "com.example.tes_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389230571789-7t5cksddrt5a23jvqah1n5q1afi5mrlf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tes_flutter",
+            "certificate_hash": "51d5236d42abedc7d48b78bcd4d54adb37a02931"
+          }
+        },
+        {
+          "client_id": "389230571789-09t0fvmasdnq1j58jup67e909eh5qdrh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4OaE2KqX7A7-yrC0dZXUNm5R9SlO7M28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389230571789-09t0fvmasdnq1j58jup67e909eh5qdrh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "389230571789-kd8n70np0ua2512k1f8pg39daiaj1g6v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tesFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
