@@ -91,7 +91,7 @@ class _ViewFoodItemsPageState extends State<ViewFoodItemsPage> {
         stream: FirebaseFirestore.instance
             .collection('users')
             .doc(widget.user.uid)
-            .collection('food_items')
+            .collection('fridge')
             .orderBy('expiryDate')
             .snapshots(),
         builder: (context, snapshot) {
@@ -117,10 +117,12 @@ class _ViewFoodItemsPageState extends State<ViewFoodItemsPage> {
               return Card(
                 margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                 child: ListTile(
-                  leading: Icon(categoryIcon, size: 50), // Use category-specific icon
+                  leading: foodItem['image'] != null && foodItem['image'].isNotEmpty
+                      ? Image.network(foodItem['image'], width: 50, height: 50, fit: BoxFit.cover)
+                      : Icon(categoryIcon, size: 50), // Use category-specific icon
                   title: Text(foodItem['name']),
                   subtitle: Text('Category: ${foodItem['category']}\nExpiry Date: $expiryText'),
-                  trailing: Text('Quantity: ${foodItem['quantity']}'),
+                  trailing: Text('Quantity: ${foodItem['quantity']} ${foodItem['unit']}'),
                   onTap: () {
                     Navigator.push(
                       context,

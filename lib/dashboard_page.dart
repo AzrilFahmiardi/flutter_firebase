@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
 import 'add_food_item_page.dart'; // Import AddFoodItemPage
 import 'view_food_items_page.dart'; // Import ViewFoodItemsPage
 import 'sign_in_page.dart'; // Import SignInPage
+import 'profile_page.dart'; // Import ProfilePage
 
 class DashboardPage extends StatefulWidget {
   final User user;
@@ -27,6 +28,7 @@ class _DashboardPageState extends State<DashboardPage> {
       _buildHomePage(),
       AddFoodItemPage(user: widget.user),
       ViewFoodItemsPage(user: widget.user),
+      ProfilePage(user: widget.user), // Add ProfilePage
     ];
   }
 
@@ -65,7 +67,7 @@ class _DashboardPageState extends State<DashboardPage> {
             stream: FirebaseFirestore.instance
                 .collection('users')
                 .doc(widget.user.uid)
-                .collection('food_items')
+                .collection('fridge')
                 .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
@@ -81,7 +83,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
               return Column(
                 children: <Widget>[
-                  _buildSummaryCard('Total Food Items', 'You have $totalItems food items in your inventory', Icons.list),
+                  _buildSummaryCard('Total Food Items', 'You have $totalItems food items in your inventory', Icons.kitchen),
                   const SizedBox(height: 10),
                   _buildSummaryCard('Almost Expired', '$almostExpiredItems food items are almost expired', Icons.warning),
                 ],
@@ -134,6 +136,7 @@ class _DashboardPageState extends State<DashboardPage> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed, // Ensure all items are displayed
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -144,8 +147,12 @@ class _DashboardPageState extends State<DashboardPage> {
             label: 'Add Food',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
+            icon: Icon(Icons.kitchen),
             label: 'View Food',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
