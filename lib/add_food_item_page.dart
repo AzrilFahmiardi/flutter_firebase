@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Import FirebaseAuth
+import 'utils.dart'; // Import showErrorDialog
 
 class AddFoodItemPage extends StatefulWidget {
   final User user; // Add user parameter
@@ -30,18 +31,22 @@ class _AddFoodItemPageState extends State<AddFoodItemPage> {
 
   Future<void> _addFoodItem() async {
     if (_formKey.currentState!.validate()) {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(widget.user.uid)
-          .collection('food_items')
-          .add({
-        'name': _nameController.text,
-        'category': _selectedCategory,
-        'expiryDate': DateTime.parse(_expiryDateController.text),
-        'addDate': DateTime.now(),
-        'quantity': '${_quantityController.text} $_selectedUnit',
-      });
-      Navigator.pop(context);
+      try {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.user.uid)
+            .collection('food_items')
+            .add({
+          'name': _nameController.text,
+          'category': _selectedCategory,
+          'expiryDate': DateTime.parse(_expiryDateController.text),
+          'addDate': DateTime.now(),
+          'quantity': '${_quantityController.text} $_selectedUnit',
+        });
+        Navigator.pop(context);
+      } catch (e) {
+        showErrorDialog(context, 'Failed to add food item', e.toString());
+      }
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Import FirebaseAuth
+import 'utils.dart'; // Import showErrorDialog
 
 class EditFoodItemPage extends StatefulWidget {
   final DocumentSnapshot foodItem;
@@ -41,29 +42,37 @@ class _EditFoodItemPageState extends State<EditFoodItemPage> {
 
   Future<void> _updateFoodItem() async {
     if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.user.uid)
+            .collection('food_items')
+            .doc(widget.foodItem.id)
+            .update({
+          'name': _nameController.text,
+          'category': _selectedCategory,
+          'expiryDate': DateTime.parse(_expiryDateController.text),
+          'quantity': '${_quantityController.text} $_selectedUnit',
+        });
+        Navigator.pop(context);
+      } catch (e) {
+        showErrorDialog(context, 'Failed to update food item', e.toString());
+      }
+    }
+  }
+
+  Future<void> _deleteFoodItem() async {
+    try {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(widget.user.uid)
           .collection('food_items')
           .doc(widget.foodItem.id)
-          .update({
-        'name': _nameController.text,
-        'category': _selectedCategory,
-        'expiryDate': DateTime.parse(_expiryDateController.text),
-        'quantity': '${_quantityController.text} $_selectedUnit',
-      });
+          .delete();
       Navigator.pop(context);
+    } catch (e) {
+      showErrorDialog(context, 'Failed to delete food item', e.toString());
     }
-  }
-
-  Future<void> _deleteFoodItem() async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(widget.user.uid)
-        .collection('food_items')
-        .doc(widget.foodItem.id)
-        .delete();
-    Navigator.pop(context);
   }
 
   Future<void> _selectExpiryDate(BuildContext context) async {
